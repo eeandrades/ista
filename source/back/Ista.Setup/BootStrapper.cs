@@ -1,6 +1,9 @@
-﻿using MediatR;
+﻿using Ista.Domain.Cards;
+using Ista.Domain.Users;
+using Ista.Repository.FileSystem.Cards;
+using Ista.Repository.FileSystem.Useres;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 
 namespace Ista.Setup
 {
@@ -9,18 +12,12 @@ namespace Ista.Setup
         public static ServiceProvider RegisterServices(IServiceCollection services)
         {
             services.AddMediatR(
-                 System.Reflection.Assembly.Load("Ista.Core")
+
+                 System.Reflection.Assembly.Load("Ista.Application")
             );
-            //services.AddScoped<ICommandMediator, InMemoryBus>();
-            ////necessário apenas se chamar o command diretamente, veja que no caso do cancel os testes não deram erro pois estou usando apenas os testes de aplicação que por sua vez são utilizados pelo mediator
-            //services.AddScoped<IRequestHandler<OrderCreateCommand, CommandResponse>, OrderCreateCommandHandler>();
-            ////repositorios
-            //services.AddScoped<ICustumerRepository, CustumerRepository>();
-            //services.AddScoped<IProductRepository, ProductRepository>();
-            //services.AddScoped<IOrderRepository, OrderRepository>();
-            //services.AddScoped<IOrderQuery, OrderRepository>();
-            ////application
-            //services.AddScoped<IOrderApplication, OrderApplication>();
+            services.AddScoped<ICardListRepository, CardListRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICardListQuery, CardListQuery>();
             return services.BuildServiceProvider();
         }
 

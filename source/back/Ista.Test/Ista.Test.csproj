@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Ista.Core\Ista.Core.csproj" />
+    <ProjectReference Include="..\Ista.Core\Ista.Domain.csproj" />
   </ItemGroup>
 
 </Project>
