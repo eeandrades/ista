@@ -102,3 +102,10 @@ alter table SignedCardList
    add constraint fkSignedCardList_User foreign key (uidUser)
       references "User" (uidUser)
 go
+
+
+insert into Scope 
+	(idScope, name) 
+values 
+	(1, 'Public'),
+	(2, 'Private')

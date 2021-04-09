@@ -13,13 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ista.Application", "Ista.Ap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ista.Test", "Ista.Test\Ista.Test.csproj", "{5AA426B5-F713-4544-A6F8-35D851E40B29}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aeon.Domain", "Aeon.Domain\Aeon.Domain.csproj", "{44153BBA-0106-41E7-AD19-38D7CC11F522}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ista.Setup", "Ista.Setup\Ista.Setup.csproj", "{D1FB31EA-BB9A-4793-813B-BFF5C1379349}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ista.Repository.FileSystem", "Ista.Repository.FileSystem\Ista.Repository.FileSystem.csproj", "{110E58D0-1D70-4BE1-9F1C-D6C12547A405}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ista.Repository.EntityFramework", "Ista.Repository.EntityFramework\Ista.Repository.EntityFramework.csproj", "{8C9932C4-683A-4053-B90C-9970CE3FA7F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ista.Repository.EntityFramework", "Ista.Repository.EntityFramework\Ista.Repository.EntityFramework.csproj", "{8C9932C4-683A-4053-B90C-9970CE3FA7F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aeon.Core", "Aeon.Core\Aeon.Core.csproj", "{4AA5402A-11C0-44DE-B3C2-78F5768DF7ED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,30 +41,25 @@ Global
 		{5AA426B5-F713-4544-A6F8-35D851E40B29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5AA426B5-F713-4544-A6F8-35D851E40B29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5AA426B5-F713-4544-A6F8-35D851E40B29}.Release|Any CPU.Build.0 = Release|Any CPU
-		{44153BBA-0106-41E7-AD19-38D7CC11F522}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{44153BBA-0106-41E7-AD19-38D7CC11F522}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{44153BBA-0106-41E7-AD19-38D7CC11F522}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{44153BBA-0106-41E7-AD19-38D7CC11F522}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D1FB31EA-BB9A-4793-813B-BFF5C1379349}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D1FB31EA-BB9A-4793-813B-BFF5C1379349}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1FB31EA-BB9A-4793-813B-BFF5C1379349}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1FB31EA-BB9A-4793-813B-BFF5C1379349}.Release|Any CPU.Build.0 = Release|Any CPU
-		{110E58D0-1D70-4BE1-9F1C-D6C12547A405}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{110E58D0-1D70-4BE1-9F1C-D6C12547A405}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{110E58D0-1D70-4BE1-9F1C-D6C12547A405}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{110E58D0-1D70-4BE1-9F1C-D6C12547A405}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8C9932C4-683A-4053-B90C-9970CE3FA7F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8C9932C4-683A-4053-B90C-9970CE3FA7F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C9932C4-683A-4053-B90C-9970CE3FA7F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C9932C4-683A-4053-B90C-9970CE3FA7F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AA5402A-11C0-44DE-B3C2-78F5768DF7ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AA5402A-11C0-44DE-B3C2-78F5768DF7ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AA5402A-11C0-44DE-B3C2-78F5768DF7ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AA5402A-11C0-44DE-B3C2-78F5768DF7ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{44153BBA-0106-41E7-AD19-38D7CC11F522} = {D531027F-4000-48D3-BEAD-7BB4A579965D}
-		{110E58D0-1D70-4BE1-9F1C-D6C12547A405} = {D531027F-4000-48D3-BEAD-7BB4A579965D}
 		{8C9932C4-683A-4053-B90C-9970CE3FA7F8} = {D531027F-4000-48D3-BEAD-7BB4A579965D}
+		{4AA5402A-11C0-44DE-B3C2-78F5768DF7ED} = {D531027F-4000-48D3-BEAD-7BB4A579965D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F9B7770C-D6FB-4968-89DA-6A9E19C5B35D}

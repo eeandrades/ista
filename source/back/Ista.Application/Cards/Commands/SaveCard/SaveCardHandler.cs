@@ -2,6 +2,7 @@
 using Ista.Domain.Cards;
 using Aeon.Domain;
 using System;
+using System.Threading.Tasks;
 
 namespace Ista.Application.Cards.Commands.SaveCard
 {
@@ -15,9 +16,9 @@ namespace Ista.Application.Cards.Commands.SaveCard
         }
 
 
-        protected override SaveCardResponse DoExecute(SaveCardRequest command)
+        async protected override Task< SaveCardResponse> DoExecute(SaveCardRequest command)
         {
-            var cardList = this._cardListRepository.FindById(command.ListId);
+            var cardList = await this._cardListRepository.FindById(command.ListId);
 
             bool Validate(out ValidationResult validationResult)
             {
@@ -46,7 +47,7 @@ namespace Ista.Application.Cards.Commands.SaveCard
 
             card.FillCardFromRequest(command);
 
-            this._cardListRepository.Save(cardList);
+            await this._cardListRepository.Save(cardList);
 
             return new SaveCardResponse()
             {

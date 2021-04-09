@@ -16,8 +16,8 @@ namespace Ista.Application.Cards.Queries
                 Name = entity.Name,
                 Owner = new User()
                 {
-                    Id = entity.Owner.Id,
-                    Name = entity.Owner.Name
+                    Id = entity.Owner?.Id??Guid.Empty,
+                    Name = entity.Owner?.Name
                 },
                 ReadOnly = entity.ReadOnly,
                 Scope = (CardListScope)entity.Scope,

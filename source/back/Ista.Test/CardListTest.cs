@@ -13,7 +13,6 @@ namespace Ista.Test
         public void FindCardById_NotFound()
         {
             Card card = GetCard(Guid.NewGuid(), Guid.NewGuid());
-
             Assert.IsTrue(card.IsEmpty);
         }
 
@@ -22,7 +21,6 @@ namespace Ista.Test
         {
             var id = Guid.NewGuid();
             Card card = GetCard(id, id);
-
             Assert.IsTrue(card.Id == id);
         }
 

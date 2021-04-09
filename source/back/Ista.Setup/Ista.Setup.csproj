@@ -14,7 +14,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     <ProjectReference Include="..\Ista.Application\Ista.Application.csproj" />
     <ProjectReference Include="..\Ista.Core\Ista.Domain.csproj" />
-    <ProjectReference Include="..\Ista.Repository.FileSystem\Ista.Repository.FileSystem.csproj" />
+    <ProjectReference Include="..\Ista.Repository.EntityFramework\Ista.Repository.EntityFramework.csproj" />
   </ItemGroup>
 
 </Project>

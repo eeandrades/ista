@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Aeon.Domain
+namespace Aeon
 {
     public static class GuidExtensions
     {

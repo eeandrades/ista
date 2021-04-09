@@ -1,9 +1,6 @@
-﻿using System;
+﻿using Ista.Domain.Cards;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Ista.Domain.Cards;
 using System.Linq;
 
 namespace Ista.Repository.FileSystem.Cards
@@ -18,7 +15,7 @@ namespace Ista.Repository.FileSystem.Cards
 
         IEnumerable<CardListBrief> ICardListQuery.FindByUser(Guid userId)
         {
-            var fileName = GetFileName(Convert.ToString( userId), "*");
+            var fileName = GetFileName(Convert.ToString(userId), "*");
 
             var files = FileHelper.GetFiles(fileName);
 
@@ -26,12 +23,13 @@ namespace Ista.Repository.FileSystem.Cards
                 files
                     .Select(f => FileHelper.GetData<CardList>(f, CardList.Empty))
                     .Where(f => !f.IsEmpty)
-                    .Select(c => new CardListBrief() { 
+                    .Select(c => new CardListBrief()
+                    {
                         Id = c.Id,
                         Name = c.Name,
                         CreationDate = c.CreationDate,
-                        CardCount = c.Cards.Count()                    
-                    });           
+                        CardCount = c.Cards.Count()
+                    });
         }
     }
 }

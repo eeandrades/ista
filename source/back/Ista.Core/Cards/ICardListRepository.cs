@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Ista.Domain.Cards
 {
     public interface ICardListRepository
     {
-        void Save(CardList cardList);
+        Task Save(CardList cardList);
 
-        CardList FindById(Guid cardId);
+        Task<CardList> FindById(Guid cardListId);
     }
 }

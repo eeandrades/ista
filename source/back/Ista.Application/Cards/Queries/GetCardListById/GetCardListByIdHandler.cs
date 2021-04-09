@@ -1,6 +1,7 @@
 ﻿using Aeon.Domain;
 using FluentValidation.Results;
 using Ista.Domain.Cards;
+using System.Threading.Tasks;
 
 namespace Ista.Application.Cards.Queries.GetCardListById
 {
@@ -13,9 +14,9 @@ namespace Ista.Application.Cards.Queries.GetCardListById
             this.cardListRepository = cardListRepository;
         }
 
-        protected override GetCardListByIdResponse DoExecute(GetCardListByIdRequest command)
+        async protected override Task<GetCardListByIdResponse> DoExecute(GetCardListByIdRequest command)
         {
-            var cardList = this.cardListRepository.FindById(command.ListId);
+            var cardList = await this.cardListRepository.FindById(command.ListId);
 
             if (cardList.IsEmpty)
                 return new ValidationResult()
@@ -26,7 +27,6 @@ namespace Ista.Application.Cards.Queries.GetCardListById
             {
                 CardList = cardList.CreateFromEntity()
             };
-
 
         }
     }

@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Aeon.Domain\Aeon.Domain.csproj" />
+    <ProjectReference Include="..\Aeon.Core\Aeon.Core.csproj" />
   </ItemGroup>
 
 </Project>

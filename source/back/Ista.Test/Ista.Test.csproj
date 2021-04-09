@@ -14,7 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Ista.Application\Ista.Application.csproj" />
     <ProjectReference Include="..\Ista.Core\Ista.Domain.csproj" />
+    <ProjectReference Include="..\Ista.Setup\Ista.Setup.csproj" />
   </ItemGroup>
 
 </Project>

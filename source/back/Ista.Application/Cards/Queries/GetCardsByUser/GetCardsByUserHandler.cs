@@ -1,5 +1,6 @@
 ﻿using Ista.Domain.Cards;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Ista.Application.Cards.Queries.GetCardsByUser
 {
@@ -12,9 +13,9 @@ namespace Ista.Application.Cards.Queries.GetCardsByUser
             this._cardListQuery = cardListQuery;
         }
 
-        protected override GetCardsByUserResponse DoExecute(GetCardsByUserRequest command)
+        async protected override Task<GetCardsByUserResponse> DoExecute(GetCardsByUserRequest command)
         {
-            var cards = this._cardListQuery.FindByUser(command.UserId)
+            var cards = (await this._cardListQuery.FindByUser(command.UserId))
                 .Select(c => new CardListBrief()
                 {
                     Id = c.Id,

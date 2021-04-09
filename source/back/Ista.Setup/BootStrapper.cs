@@ -1,23 +1,24 @@
-﻿using Ista.Domain.Cards;
-using Ista.Domain.Users;
-using Ista.Repository.FileSystem.Cards;
-using Ista.Repository.FileSystem.Useres;
+﻿using Ista.Repository.EntityFramework;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Ista.Setup
 {
-    public static class BootStrapper
+    public static class Bootstrapper
     {
-        public static ServiceProvider RegisterServices(IServiceCollection services)
+        public static ServiceProvider ConfigureServices
+            (IServiceCollection services)
         {
-            services.AddMediatR(
 
+            services.AddMediatR(
                  System.Reflection.Assembly.Load("Ista.Application")
             );
-            services.AddScoped<ICardListRepository, CardListRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<ICardListQuery, CardListQuery>();
+
+            var connectionString = "Data Source=localhost;Initial Catalog=Ista;Trusted_Connection=True;User Id=sa;Password=sasa";
+            services.ConfigureIstaRepositoryEF(options => options.UseSqlServer(connectionString));
+
+
             return services.BuildServiceProvider();
         }
 

@@ -35,10 +35,8 @@ namespace Ista.Api.Rest
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ista.Api.Rest", Version = "v1" });
             });
 
-            Ista.Setup.BootStrapper.RegisterServices(services);
+            Ista.Setup.Bootstrapper.ConfigureServices(services);
 
-            //services.AddControllersWithViews();
-            //services.AddMediatR(Assembly.GetExecutingAssembly());
 
         }
 

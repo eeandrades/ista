@@ -1,4 +1,5 @@
 ﻿using FluentValidation.Results;
+using System.Threading.Tasks;
 
 namespace Aeon.Domain
 {
@@ -11,6 +12,15 @@ namespace Aeon.Domain
             {
                 ValidationResult = validationResult
             };
+        }
+
+        public static Task<TCommandResponse> CreateResponseAsync<TCommandResponse>(this ValidationResult validationResult)
+            where TCommandResponse : ResponseBase, new()
+        {
+            return Task.FromResult(new TCommandResponse()
+            {
+                ValidationResult = validationResult
+            });
         }
 
         public static ValidationResult AddError(this ValidationResult validationResult, string propertyName, string errorMessage)
@@ -26,10 +36,10 @@ namespace Aeon.Domain
 
         public static void Merge(this ValidationResult source, ValidationResult dest)
         {
-            foreach(var err in dest.Errors)
+            foreach (var err in dest.Errors)
             {
                 source.Errors.Add(err);
-            }          
+            }
         }
     }
 }

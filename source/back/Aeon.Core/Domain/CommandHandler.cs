@@ -22,17 +22,17 @@ namespace Aeon.Domain
 
         protected virtual ValidationResult DoValidate(TCommand command) => new ValidationResult();
 
-        protected abstract TCommandResponse DoExecute(TCommand command);
+        protected abstract Task<TCommandResponse> DoExecute(TCommand command);
 
-        async Task<TCommandResponse> IRequestHandler<TCommand, TCommandResponse>.Handle(TCommand request, CancellationToken cancellationToken)
+        Task<TCommandResponse> IRequestHandler<TCommand, TCommandResponse>.Handle(TCommand request, CancellationToken cancellationToken)
         {
             if (this.Validate(request, out var validationResult))
             {
-                return await Task<TCommandResponse>.Run(() => this.DoExecute(request));
+                return  this.DoExecute(request);
             }
             else
             {
-                return await Task<ValidationResult>.Run(() => validationResult.CreateResponse<TCommandResponse>());
+                return validationResult.CreateResponseAsync<TCommandResponse>();
             }
         }
     }
