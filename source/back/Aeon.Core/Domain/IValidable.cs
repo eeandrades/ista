@@ -1,10 +1,11 @@
 ﻿using FluentValidation.Results;
+using System.Threading.Tasks;
 
 namespace Aeon.Domain
 {
     public interface IValidable
     {
-        ValidationResult Validate();
-        bool Validate(out ValidationResult validationResult);
+        Task<ValidationResult> ValidateAsync();
+        //Task<bool> ValidateAsync(out ValidationResult validationResult);
     }
 }

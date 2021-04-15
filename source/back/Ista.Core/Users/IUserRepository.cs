@@ -8,6 +8,6 @@ namespace Ista.Domain.Users
 {
     public interface IUserRepository
     {
-        User FindById(Guid userId);
+        Task<User> FindById(Guid userId);
     }
 }

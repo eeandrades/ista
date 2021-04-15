@@ -5,7 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Cards\Commands\Delete\" />
+    <Compile Remove="Cards\Commands\Delete\**" />
+    <EmbeddedResource Remove="Cards\Commands\Delete\**" />
+    <None Remove="Cards\Commands\Delete\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -15,6 +17,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Aeon.Core\Aeon.Core.csproj" />
     <ProjectReference Include="..\Ista.Core\Ista.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Cards\Commands\CardsList\Delete\" />
   </ItemGroup>
 
 </Project>

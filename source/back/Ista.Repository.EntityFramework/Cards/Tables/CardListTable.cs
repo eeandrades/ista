@@ -38,19 +38,17 @@ namespace Ista.Repository.EntityFramework.Cards.Tables
                 
         }
 
-        public static CardListTable FronEntity(CardList cardList)
+
+
+        public static CardListTable CreateFromCardListCreateArgs(CreateCardListArgs cardListCreateArgs)
         {
             return new CardListTable()
-                .FillFromEntity(cardList);
-        }
-
-        public CardListTable FillFromEntity(CardList cardList)
-        {
-            this.Uid = Convert.ToString(cardList.Id);
-            this.Name = cardList.Name;
-            this.Scope = (Int16)cardList.Scope;
-            this.UserOwnerId = Convert.ToString(cardList.User?.Id);
-            return this;
+            {
+                Uid = Convert.ToString( cardListCreateArgs.Id),
+                Name = cardListCreateArgs.Name,
+                UserOwnerId = Convert.ToString( cardListCreateArgs.OwnerUserId),
+                Scope = (Int16)cardListCreateArgs.Scope
+            };
         }
     }
 }

@@ -13,6 +13,9 @@ namespace Ista.Repository.EntityFramework
         {
             this._dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
+
+        
+
         async Task<bool> IUnitOfWork.Commit()
         {
             return (await this._dbContext.SaveChangesAsync()) > 0;
@@ -24,5 +27,6 @@ namespace Ista.Repository.EntityFramework
         }
 
         void IDisposable.Dispose() => this._dbContext.Dispose();
+
     }
 }

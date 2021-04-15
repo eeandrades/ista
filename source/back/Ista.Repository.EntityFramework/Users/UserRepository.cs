@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Ista.Domain.Users;
 using Ista.Repository.EntityFramework.Users.Tables;
+using Microsoft.EntityFrameworkCore;
 
 namespace Ista.Repository.EntityFramework.Users
 {
@@ -18,21 +19,21 @@ namespace Ista.Repository.EntityFramework.Users
         }
 
 
-        User IUserRepository.FindById(Guid userId)
+        async Task<User> IUserRepository.FindById(Guid userId)
         {
             var id = userId.ToString();
-            var result = appDbContext.Set<UserTable>()
-                .Where(t => t.Uid == id)
-                .Select(t => new User()
-                {
-                    Id = new Guid(t.Uid),
-                    Name = t.Name,
-                    Login = t.Login
-                })
-                //.DefaultIfEmpty(User.Empty)
-                .FirstOrDefault();
+            var userTable = await appDbContext.User
+                .SingleOrDefaultAsync(c => 
+                c.Uid == userId.ToString()
+            );
 
-            return result ?? User.Empty;
+            return userTable != null ?
+                new User()
+                {
+                    Id = Guid.Parse(userTable.Uid),
+                    Login = userTable.Login,
+                    Name = userTable.Name
+                }:User.Empty;
         }
     }
 }

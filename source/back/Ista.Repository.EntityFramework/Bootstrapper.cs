@@ -17,7 +17,7 @@ namespace Ista.Repository.EntityFramework
             
             services.AddScoped<ICardListRepository, CardListRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<ICardListQuery, CardListRepository>();
+            services.AddScoped<ICardListQuery, CardListQuerie>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }

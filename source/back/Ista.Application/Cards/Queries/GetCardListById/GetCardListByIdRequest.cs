@@ -1,5 +1,6 @@
 ﻿using FluentValidation.Results;
 using System;
+using System.Text.Json.Serialization;
 
 namespace Ista.Application.Cards.Queries.GetCardListById
 {
@@ -7,8 +8,8 @@ namespace Ista.Application.Cards.Queries.GetCardListById
     {
         public Guid ListId { get; set; }
 
-        protected override ValidationResult DoValidate() => new GetCardListByIdRequestValidator().Validate(this);
-
+        [JsonIgnore]
+        public Guid OwnerId { get; set; }
 
     }
 }

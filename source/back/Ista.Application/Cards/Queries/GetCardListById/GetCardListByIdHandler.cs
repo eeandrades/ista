@@ -5,18 +5,22 @@ using System.Threading.Tasks;
 
 namespace Ista.Application.Cards.Queries.GetCardListById
 {
-    internal class GetCardListByIdHandler : Aeon.Domain.CommandHandler<GetCardListByIdRequest, GetCardListByIdResponse>
+    internal class GetCardListByIdHandler : Aeon.Domain.Handler<GetCardListByIdRequest, GetCardListByIdResponse>
     {
-        private readonly ICardListRepository cardListRepository;
+        private readonly GetCardListByIdRequestValidator _validator;
+        private readonly ICardListQuery _cardListQuery;
 
-        public GetCardListByIdHandler(ICardListRepository cardListRepository)
+        protected override Task<ValidationResult> DoValidateAsync(GetCardListByIdRequest command) => this._validator.ValidateAsync(command);
+
+        public GetCardListByIdHandler(GetCardListByIdRequestValidator validator, ICardListQuery cardListQuery)
         {
-            this.cardListRepository = cardListRepository;
+            this._validator = validator ?? throw new System.ArgumentNullException(nameof(validator));
+            this._cardListQuery = cardListQuery ?? throw new System.ArgumentNullException(nameof(cardListQuery));
         }
 
-        async protected override Task<GetCardListByIdResponse> DoExecute(GetCardListByIdRequest command)
+        async protected override Task<GetCardListByIdResponse> DoExecuteAsync(GetCardListByIdRequest command)
         {
-            var cardList = await this.cardListRepository.FindById(command.ListId);
+            var cardList = await this._cardListQuery.FindById(command.ListId);
 
             if (cardList.IsEmpty)
                 return new ValidationResult()
@@ -27,7 +31,6 @@ namespace Ista.Application.Cards.Queries.GetCardListById
             {
                 CardList = cardList.CreateFromEntity()
             };
-
         }
     }
 }

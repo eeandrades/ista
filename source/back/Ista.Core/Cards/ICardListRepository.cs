@@ -5,8 +5,13 @@ namespace Ista.Domain.Cards
 {
     public interface ICardListRepository
     {
-        Task Save(CardList cardList);
+        Task Create(CreateCardListArgs cardListArgs);
 
-        Task<CardList> FindById(Guid cardListId);
+        Task Update(CreateCardListArgs cardListArgs);
+
+
+        Task CreateCard(CreateCardArgs createCardArgs);
+
+        Task UpdateCard(UpdateCardArgs updateCardArgs);
     }
 }

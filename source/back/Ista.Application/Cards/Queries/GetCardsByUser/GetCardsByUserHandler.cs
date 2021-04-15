@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Ista.Application.Cards.Queries.GetCardsByUser
 {
-    internal class GetCardsByUserHandler : Aeon.Domain.CommandHandler<GetCardsByUserRequest, GetCardsByUserResponse>
+    internal class GetCardsByUserHandler : Aeon.Domain.Handler<GetCardsByUserRequest, GetCardsByUserResponse>
     {
         private readonly ICardListQuery _cardListQuery;
 
@@ -13,7 +13,7 @@ namespace Ista.Application.Cards.Queries.GetCardsByUser
             this._cardListQuery = cardListQuery;
         }
 
-        async protected override Task<GetCardsByUserResponse> DoExecute(GetCardsByUserRequest command)
+        async protected override Task<GetCardsByUserResponse> DoExecuteAsync(GetCardsByUserRequest command)
         {
             var cards = (await this._cardListQuery.FindByUser(command.UserId))
                 .Select(c => new CardListBrief()
