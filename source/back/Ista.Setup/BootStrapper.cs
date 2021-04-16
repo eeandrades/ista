@@ -3,7 +3,7 @@ using Ista.Application.Cards.Commands.Cards.Update;
 using Ista.Application.Cards.Commands.CardsList.Create;
 using Ista.Application.Cards.Commands.CardsList.Update;
 using Ista.Application.Cards.Queries.GetCardListById;
-using Ista.Application.Cards.Queries.GetCardsByUser;
+using Ista.Application.Cards.Queries.GetCardListByUser;
 using Ista.Domain.Cards;
 using Ista.Domain.Users;
 using Ista.Repository.EntityFramework;
@@ -33,7 +33,7 @@ namespace Ista.Setup
             services.AddScoped<UserValidator>();
             services.AddScoped<CardListValidator>();
 
-            services.AddScoped<GetCardsByUserRequestValidator>();
+            services.AddScoped<GetCardListByUserRequestValidator>();
 
             services.AddScoped<GetCardListByIdRequestValidator>();
 

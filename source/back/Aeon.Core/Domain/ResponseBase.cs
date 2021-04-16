@@ -21,7 +21,7 @@ namespace Aeon.Domain
 
         public bool IsInvalid => !this.IsValid;
 
-        public IEnumerable<ValidationFailure> Errors => this.ValidationResult?.Errors ?? System.Array.Empty<ValidationFailure>();
+        public IEnumerable<ValidationFailure> Messages => this.ValidationResult?.Errors ?? System.Array.Empty<ValidationFailure>();
 
         public void AddError(ValidationFailure validationFailure)
         {

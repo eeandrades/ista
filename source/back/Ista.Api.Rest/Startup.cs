@@ -1,3 +1,4 @@
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,6 +14,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+
+using Ista.Api.Rest.AutoMapper;
+using Ista.Api.Rest.AutoMapper.CardsList;
+using Ista.Api.Rest.AutoMapper.GetCardListById;
+using Ista.Api.Rest.AutoMapper.GetCardListByUser;
 
 namespace Ista.Api.Rest
 {
@@ -35,7 +41,18 @@ namespace Ista.Api.Rest
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Ista.Api.Rest", Version = "v1" });
             });
 
+            services.AddAutoMapper(typeof(BasicAutoMapper));
+            services.AddAutoMapper(typeof(CardListAutoMapper));
+             services.AddAutoMapper(typeof(GetCardListByIdAutoMapper));
+            services.AddAutoMapper(typeof(GetCardListByUserAutoMapper));
+
             Ista.Setup.Bootstrapper.ConfigureServices(services);
+
+
+            var configuration = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Model.CardsList.CardListRequestModel, Ista.Application.Cards.Commands.CardsList.Create.CreateCardListRequest>();
+            });
 
 
         }

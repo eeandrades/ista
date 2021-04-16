@@ -5,13 +5,13 @@ using Ista.Domain.Users;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Ista.Application.Cards.Queries.GetCardsByUser
+namespace Ista.Application.Cards.Queries.GetCardListByUser
 {
-    public class GetCardsByUserRequestValidator : FluentValidation.AbstractValidator<GetCardsByUserRequest>
+    public class GetCardListByUserRequestValidator : FluentValidation.AbstractValidator<GetCardListByUserRequest>
     {
         private readonly UserValidator _userValidator;
 
-        public GetCardsByUserRequestValidator(UserValidator userValidator)
+        public GetCardListByUserRequestValidator(UserValidator userValidator)
         {
             this._userValidator = userValidator ?? throw new System.ArgumentNullException(nameof(userValidator));
 
@@ -21,7 +21,7 @@ namespace Ista.Application.Cards.Queries.GetCardsByUser
                 .WithMessage("Informe o id do usuário");
         }
 
-        async public override Task<ValidationResult> ValidateAsync(ValidationContext<GetCardsByUserRequest> context, CancellationToken cancellation = default)
+        async public override Task<ValidationResult> ValidateAsync(ValidationContext<GetCardListByUserRequest> context, CancellationToken cancellation = default)
         {
             var result = await base.ValidateAsync(context, cancellation);
 

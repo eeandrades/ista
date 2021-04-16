@@ -1,23 +1,45 @@
 ﻿using Ista.Application.Cards.Commands.CardsList.Create;
 using Ista.Application.Cards.Commands.CardsList.Update;
 using Ista.Application.Cards.Queries.GetCardListById;
-using Ista.Application.Cards.Queries.GetCardsByUser;
+using Ista.Application.Cards.Queries.GetCardListByUser;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using Ista.Application.Cards.Commands.Cards.Create;
 using Ista.Application.Cards.Commands.Cards.Update;
+using Ista.Api.Rest.Model.CardsList;
+using Ista.Api.Rest.Model;
+using Ista.Application.Cards;
+using System.Linq;
+using Microsoft.AspNetCore.Http;
+using AutoMapper;
+using FluentValidation.Results;
+using Aeon.Domain;
+using Ista.Api.Rest.Model.Cards;
+using Ista.Api.Rest.Model.GetCardListById;
+using Ista.Api.Rest.Model.GetCardListByUser;
 
 namespace Ista.Api.Rest.Controllers
 {
-    [Route("api/lists")]
+    [Route("api/card-list")]
     public class CardListController : ControllerBase
     {
 
+        private ObjectResult CreateObjectResult(int successStatusCode, int errorStatusCode, ResponseModel response)
+        {
+            var statusCode = response.IsValid ? successStatusCode : errorStatusCode;
+            return base.StatusCode(statusCode, response);
+        }
+
+        private ObjectResult CreateObjectResult(int successStatusCode, ResponseModel response)
+        {
+            return this.CreateObjectResult(successStatusCode, StatusCodes.Status400BadRequest, response);
+        }
+
         private Guid GetUserId()
         {
-            if(this.Request.Headers.TryGetValue("Token", out var token ))
+            if (this.Request.Headers.TryGetValue("Token", out var token))
             {
                 return Guid.Parse(token.ToString());
             }
@@ -28,57 +50,113 @@ namespace Ista.Api.Rest.Controllers
         }
 
         [HttpPost]
-        public async Task<CreateCardListResponse> CreateCardList([FromServices] IMediator mediator, [FromBody] CreateCardListRequest request)
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreateResponseModel))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResponseModel))]
+        public async Task<ObjectResult> CreateCardList([FromServices] IMapper mapper, [FromServices] IMediator mediator, [FromBody] CardListRequestModel request)
         {
-            request.OwnerUserId = GetUserId();
-            return await mediator.Send(request);
-        }        
-        
+            var commandRequest = mapper.Map<CreateCardListRequest>(request);
+
+            commandRequest.OwnerUserId = this.GetUserId();
+
+            var commandResult = await mediator.Send(commandRequest);
+
+            var response = mapper.Map<CreateResponseModel>(commandResult);
+
+            return this.CreateObjectResult(StatusCodes.Status201Created, response);
+        }
+
         [HttpPut]
         [Route("{cardListId}")]
-        public async Task<UpdateCardListResponse> UpdateCardList([FromServices] IMediator mediator, Guid cardListId, [FromBody] UpdateCardListRequest  request)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResponseModel))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResponseModel))]
+        public async Task<ObjectResult> UpdateCardList([FromServices] IMapper mapper, [FromServices] IMediator mediator, Guid cardListId, [FromBody] UpdateCardListRequest request)
         {
-            request.CardListId = cardListId;
-            request.OwnerUserId = this.GetUserId();
-            return await mediator.Send(request);
+            var commandRequest = mapper.Map<UpdateCardListRequest>(request);
+            commandRequest.CardListId = cardListId;
+            commandRequest.OwnerUserId = this.GetUserId();
+            
+            var commandResult = await mediator.Send(commandRequest);
+
+            var response = mapper.Map<ResponseModel>(commandResult);
+
+            return this.CreateObjectResult(StatusCodes.Status200OK, response);
         }
 
 
         [HttpPost]
         [Route("{cardListId}/Cards")]
-        public async Task<CreateCardResponse> CreateCard
-            ([FromServices] IMediator mediator, [FromRoute] Guid cardListId, [FromBody] CreateCardRequest request)
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CreateResponseModel))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResponseModel))]
+        public async Task<ObjectResult> CreateCard
+            ([FromServices] IMapper mapper, [FromServices] IMediator mediator, [FromRoute] Guid cardListId, [FromBody] CardRequestModel request)
         {
-            request.OwnerUserId = GetUserId();
-            request.CardListId = cardListId;
-            return await mediator.Send(request);
+            var commandRequest = mapper.Map<CreateCardRequest>(request);
+            commandRequest.CardListId = cardListId;
+            commandRequest.OwnerUserId = this.GetUserId();
+            
+            var commandResult = await mediator.Send(commandRequest);
+
+            var response = mapper.Map<CreateResponseModel>(commandResult);
+
+            return this.CreateObjectResult(StatusCodes.Status201Created, response);
         }
 
         [HttpPut]
         [Route("{cardListId}/Cards/{cardId}")]
-        public async Task<UpdateCardResponse> UpdateCard
-            ([FromServices] IMediator mediator, [FromRoute] Guid cardListId, Guid cardId, [FromBody] UpdateCardRequest request)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResponseModel))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResponseModel))]
+        public async Task<ObjectResult> UpdateCard
+            ([FromServices] IMapper mapper, [FromServices] IMediator mediator, [FromRoute] Guid cardListId, Guid cardId, [FromBody] CardRequestModel request)
         {
-            request.OwnerUserId = GetUserId();
-            request.CardListId = cardListId;
-            request.CardId = cardId;
-            return await mediator.Send(request);
+            var commandRequest = mapper.Map<UpdateCardRequest>(request);
+            commandRequest.CardListId = cardListId;
+            commandRequest.OwnerUserId = this.GetUserId();
+            commandRequest.CardId = cardId;
+
+            var commandResult = await mediator.Send(commandRequest);
+
+            var response = mapper.Map<ResponseModel>(commandResult);
+
+            return this.CreateObjectResult(StatusCodes.Status200OK, response);
         }
 
 
         [HttpGet]
         [Route("{ListId}")]
-        public async Task<GetCardListByIdResponse> GetCardListById([FromServices] IMediator mediator, [FromRoute] GetCardListByIdRequest request)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetCardListByIdResponseModel))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResponseModel))]
+        public async Task<ObjectResult> GetCardListById([FromServices] IMapper mapper, [FromServices] IMediator mediator, Guid listId)
         {
-            request.OwnerId = GetUserId();
-            return await mediator.Send(request);
+            var request = new GetCardListByIdRequest()
+            {
+                ListId = listId,
+                OwnerId = GetUserId()
+            };
+
+            var queryResult = await mediator.Send(request);
+
+            var response = mapper.Map<GetCardListByIdResponseModel>(queryResult);
+
+            return this.CreateObjectResult(StatusCodes.Status200OK, response);
+
         }
 
         [HttpGet]
-        public async Task<GetCardsByUserResponse> GetCardList([FromServices] IMediator mediator, [FromQuery] GetCardsByUserRequest request)
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GetCardListByUserResponseModel))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResponseModel))]
+        public async Task<ObjectResult> GetCardListByUser([FromServices] IMapper mapper, [FromServices] IMediator mediator)
         {
-            request.UserId = GetUserId();
-            return await mediator.Send(request);
+            GetCardListByUserRequest request = new GetCardListByUserRequest()
+            {
+                UserId = GetUserId()
+            };
+
+            
+            var queryResult= await mediator.Send(request);
+
+            var response = mapper.Map<GetCardListByUserResponseModel>(queryResult);
+
+            return this.CreateObjectResult(StatusCodes.Status200OK, response);
         }
     }
 }

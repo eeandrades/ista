@@ -2,9 +2,9 @@
 using System;
 using System.Text.Json.Serialization;
 
-namespace Ista.Application.Cards.Queries.GetCardsByUser
+namespace Ista.Application.Cards.Queries.GetCardListByUser
 {
-    public class GetCardsByUserRequest : Aeon.Domain.RequestBase<GetCardsByUserResponse>
+    public class GetCardListByUserRequest : Aeon.Domain.RequestBase<GetCardListByUserResponse>
     {
         [JsonIgnore]
         public Guid UserId { get; set; }

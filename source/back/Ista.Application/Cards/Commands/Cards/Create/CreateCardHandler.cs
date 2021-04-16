@@ -52,7 +52,7 @@ namespace Ista.Application.Cards.Commands.Cards.Create
 
             return new CreateCardResponse()
             {
-                NewCardId = args.CardId
+                NewId = args.CardId
             };
         }
     }

@@ -16,7 +16,16 @@ namespace Ista.Application.Cards.Commands.Cards.Update
         public UpdateCardRequestValidator(UserValidator userValidator, CardListValidator cardListValidator)
             :base(userValidator, cardListValidator)
         {
-            
+            RuleFor(c => c.CardListId)
+                .NotEmpty()
+                .WithErrorCode("0006")
+                .WithMessage("O id da lista deve ser informado");
+
+            RuleFor(c => c.CardId)
+                .NotEmpty()
+                .WithErrorCode("0008")
+                .WithMessage("O id do cartão deve ser informado");
+
         }
 
     }

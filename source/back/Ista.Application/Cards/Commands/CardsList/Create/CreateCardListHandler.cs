@@ -53,7 +53,7 @@ namespace Ista.Application.Cards.Commands.CardsList.Create
 
             return new CreateCardListResponse()
             {
-                CadListUid = cardListCreateArgs.Id
+                NewId = cardListCreateArgs.Id
             };
         }
     }

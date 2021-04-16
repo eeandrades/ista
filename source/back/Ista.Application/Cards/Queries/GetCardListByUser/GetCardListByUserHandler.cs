@@ -2,18 +2,18 @@
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Ista.Application.Cards.Queries.GetCardsByUser
+namespace Ista.Application.Cards.Queries.GetCardListByUser
 {
-    internal class GetCardsByUserHandler : Aeon.Domain.Handler<GetCardsByUserRequest, GetCardsByUserResponse>
+    internal class GetCardListByUserHandler : Aeon.Domain.Handler<GetCardListByUserRequest, GetCardListByUserResponse>
     {
         private readonly ICardListQuery _cardListQuery;
 
-        public GetCardsByUserHandler(ICardListQuery cardListQuery)
+        public GetCardListByUserHandler(ICardListQuery cardListQuery)
         {
             this._cardListQuery = cardListQuery;
         }
 
-        async protected override Task<GetCardsByUserResponse> DoExecuteAsync(GetCardsByUserRequest command)
+        async protected override Task<GetCardListByUserResponse> DoExecuteAsync(GetCardListByUserRequest command)
         {
             var cards = (await this._cardListQuery.FindByUser(command.UserId))
                 .Select(c => new CardListBrief()
@@ -24,7 +24,7 @@ namespace Ista.Application.Cards.Queries.GetCardsByUser
                     CreationDate = c.CreationDate
                 });
 
-            return new GetCardsByUserResponse()
+            return new GetCardListByUserResponse()
             {
                 Cards = cards
             };
